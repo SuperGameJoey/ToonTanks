@@ -6,24 +6,37 @@
 #include "GameFramework/Pawn.h"
 #include "PawnBase.generated.h"
 
+class UCapsuleComponent; // this is a forward declaration instead of an include in order to speed up compile time
+
 UCLASS()
 class TOONTANKS_API APawnBase : public APawn
 {
 	GENERATED_BODY()
 
+private:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true")) // meta AllowPrivateAccess is required to make private variables available in the editor
+	UCapsuleComponent* CapsuleComp;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	UStaticMeshComponent* BaseMesh;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	UStaticMeshComponent* TurretMesh;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	USceneComponent* ProjectileSpawnPoint;
+
 public:
 	// Sets default values for this pawn's properties
 	APawnBase();
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 
 };
