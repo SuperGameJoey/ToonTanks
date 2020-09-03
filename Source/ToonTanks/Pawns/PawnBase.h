@@ -33,4 +33,10 @@ public:
 
 protected:
 
+	void RotateTurret(FVector LookAtTarget);
+
+	void Fire();
+
+	virtual void HandleDestruction();
+
 };
